@@ -342,7 +342,7 @@
       $("#img5").css("display", "block");
     };
   }
-
+  //图片
   function qingli() {
     var obj = document.getElementById('filewb');
     obj.outerHTML = obj.outerHTML;
@@ -488,11 +488,27 @@
       })
     }
   }
-  function submitAppointment() {
+  async function submitAppointment() {
     const { createClient } = supabase
     const _supabase = createClient('https://cmyawtiqbhxbmzuzbcap.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNteWF3dGlxYmh4Ym16dXpiY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwNDk3MTksImV4cCI6MjAxMzYyNTcxOX0.XjcwHTPCDCE8NijF0wqVQdrfJqvwY-TVlbvEIxD5bd8')
-    
-    
+    const { data, error } = await _supabase
+      .from('yuyue')
+      .insert({
+        ocaCheckerType: '临时进校', // 预约类型：临时进校，合作单位
+        ocaUserName: '陈诺',
+        ocaUserSex: '女',
+        ocaUserNo: '123456789098765432',
+        ocaStartDate: new Date().getTime(),
+        ocaEndDate: new Date().getTime() + 86400,
+        ocaSubjectMatter: '来访', // 来访单位
+        ocaPlaceOfAdmission: '580门岗', // 入校地点
+        ocaUserWay: '步行前往', // 前往方式：驱车前往，步行前往
+        ocaLicensePlate: '', // 车牌号
+        piName: '魏颃', // 邀请人
+        departmentName: '管理学院', //邀请部门 
+      })
+    console.log(($("#dataFrom").serialize()))
+    console.log(strToObj(decodeURI($("#dataFrom").serialize())))
     $.ajax({
       url: "http://localhost:8000/aspi/submitAppointment",
       data: $("#dataFrom").serialize(),
@@ -515,6 +531,14 @@
       }
     })
 
+  }
+
+  function strToObj(str) {
+    str = str.replace(/&/g, "','");
+    str = str.replace(/=/g, "':'");
+    str = "({'" + str + "'})";
+    obj = eval(str);
+    return obj;
   }
 </script>
 
