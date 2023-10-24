@@ -143,8 +143,8 @@
 	}
 
 	function stepsIndex(index, value) {
-		var ocaStatus = value.oca_Status;
-		var ocaAuditorStatus = value.oca_Auditor_Status;
+		var ocaStatus = value.ocaStatus;
+		var ocaAuditorStatus = value.ocaAuditorStatus;
 		steps({
 			el: "#steps" + index,
 			data: [
@@ -169,8 +169,20 @@
 			// 123456789098765432
 		// console.log(data[data.length - 1])
 		var resData = {
+		
 			apply: {
-				id : 2,
+				ocaCheckerType : "临时前往",
+				ocaUserName : "姓名",
+				ocaUserSex : "女",
+				ocaUserNo : "123456789098765432",
+				ocaStartDate : 1698118812946,
+				ocaEndDate : 1698119812946,
+				ocaSubjectMatter : "管理学院",
+				ocaPlaceOfAdmission : "580门岗",
+				ocaUserWay : "步行前往",
+				ocaLicensePlate : "F243",
+			},
+			data: {
 				ocaCheckerType : "临时前往",
 				ocaUserName : "姓名",
 				ocaUserSex : "女",
@@ -182,17 +194,17 @@
 				ocaUserWay : "步行前往",
 				ocaLicensePlate : "F243",
 				departmentName:'管理学院',
-				piName:'韦航'
+				piName:'韦航',
+				ocaStatus:1,
+				ocaAuditorStatus:1
 			},
-			data: data[data.length - 1]
+		
 		}
-		console.log(resData)
-		$.each(eval(data), function (index, value) {
+		$.each(eval(resData), function (index, value) {
 			// console.log('Supabase Instance: ', _supabase)
-
 			var ocaStatus = value.ocaStatus;
 			var ocaAuditorStatus = value.ocaAuditorStatus;
-			// console.log(index, value)
+			console.log(ocaStatus)
 			var msg = "";
 			if (ocaStatus == null || ocaStatus == 0) {
 				msg = "邀请人未审核";
@@ -228,72 +240,6 @@
 		})
 	}
 
-	async function sendData(data) {
-
-	}
-	function query1() {
-		var ocaUserNo = $("#ocaUserNo").val();
-		if (ocaUserNo == "") {
-			return false;
-		}
-		$("#content").html("");
-
-
-		$.ajax({
-			// url: "http://localhost:8000/api/queryOffCampusAppointment",
-			url: "http://localhost:8000",
-			// url: "https://cmyawtiqbhxbmzuzbcap.supabase.co/rest/v1/",
-			data: { "ocaUserNo": ocaUserNo },
-			type: "POST",
-			dataType: 'json', // 用于设置响应体的类型
-
-			success: function (obj) {
-				$.each(eval(obj), function (index, value) {
-					// console.log('Supabase Instance: ', _supabase)
-
-					var ocaStatus = value.oca_Status;
-					var ocaAuditorStatus = value.oca_Auditor_Status;
-					// console.log(index, value)
-					var msg = "";
-					if (ocaStatus == null || ocaStatus == 0) {
-						msg = "邀请人未审核";
-					} else if (ocaStatus == 2) {
-						msg = "邀请人审核未通过";
-					} else if (ocaAuditorStatus == null || ocaAuditorStatus == 0) {
-						msg = "部门领导未审核";
-					} else if (ocaAuditorStatus == 2) {
-						msg = "部门领导审核未通过";
-					} else if (ocaAuditorStatus == 1) {
-						msg = "完成";
-					}
-					$("#content").append("<div style=\"margin-top: 15px\">\r\n" +
-						"				<div class=\"jieguoDiv\">\r\n" +
-						"					<table>\r\n" +
-						"						<tr><td colspan=\"2\" style=\"font-size: initial;font-weight: bold;color: black;\">姓名：" + (value.oca_User_Name == null ? "" : value.oca_User_Name) + "</td></tr>\r\n" +
-						"						<tr><td colspan=\"2\" style=\"font-size: initial;font-weight: bold;color: black;\">身份证号：" + (value.oca_UserNo == null ? "" : value.oca_UserNo) + "</td></tr>\r\n" +
-						"						<tr><td colspan=\"2\" style=\"font-size: initial;font-weight: bold;color: black;\">预约类型：" + (value.ocaCheckerType == 1 ? "临时进校" : "合作单位") + "</td></tr>\r\n" +
-						"						<tr><td  style=\"font-size: 12px;color: #999;\"  colspan=\"2\">申请入校日期：" + (new Date(value.oca_Start_Date).format("yyyy-MM-dd hh:mm:ss")) + "</td></tr>\r\n" +
-						"						<tr><td style=\"font-size: 12px;color: #999;\"  colspan=\"2\">申请离校时间：" + (new Date(value.oca_End_Date).format("yyyy-MM-dd hh:mm:ss")) + "</td></tr>\r\n" +
-						"						<tr><td style=\"font-size: 12px;color: #999;\"  colspan=\"2\">入校地点：" + (value.oca_Place_Of_Admission == null ? "" : value.oca_Place_Of_Admission) + "</td></tr>\r\n" +
-						(value.oca_UserWay == "驱车前往" ? "<tr><td>进校方式：驱车前往</td><td>车牌号：" + (value.oca_License_Plate) + "</td></tr>\r\n" : "") +
-						(value.oca_UserWay == "步行前往" ? "<tr><td colspan=\"2\">进校方式：徒步前往</td></tr>\r\n" : "") +
-						"						<tr><td colspan=\"2\" style=\"font-size: initial;font-weight: bold;color: black;\">邀请人：" + (value.pi_Name == null ? "" : value.pi_Name) + "</td></tr>\r\n" +
-						"						<tr><td colspan=\"2\" style=\"font-size: initial;font-weight: bold;color: black;\">邀请人部门：" + (value.Department_Name == null ? "" : value.Department_Name) + "</td></tr>\r\n" +
-
-						"						<tr><td style=\"font-size: 12px;color: #999;\"  colspan=\"2\">审核进度：" + msg + "</td></tr>\r\n" +
-						"					</table>\r\n" +
-						"					<div id=\"steps" + index + "\"></div>\r\n" +
-						"				</div>\r\n" +
-						"			</div>");
-					stepsIndex(index, value);
-				})
-
-			},
-			error: function () {
-				alert("操作异常，请联系管理员");
-			}
-		})
-	}
 	Date.prototype.format = function (fmt) {
 		var o = {
 			"M+": this.getMonth() + 1, //月份

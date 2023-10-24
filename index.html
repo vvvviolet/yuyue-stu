@@ -6,11 +6,6 @@
   <link rel="icon" href="/xyyy_1.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>校内预约平台</title>
-  
-  
-  
-  
-
   <style type="text/css">
     body {
       background: #b71b30;
@@ -50,7 +45,7 @@
 
     .sp_in {
       margin: 20px;
-    
+
     }
 
     .spansp {
@@ -157,19 +152,21 @@
   </style>
   <script type="module" crossorigin src="/assets/index-dd4a855f.js"></script>
   <link rel="stylesheet" href="/assets/index-451999f6.css">
+
 </head>
 
 <body>
   <div id="app"></div>
-  
   <div>
     <div><img alt="" width="100%" src="xyyy_1.png"></div>
     <div style="text-align: center;color: #fff;font-size: 18px;padding: 8px 0px;">
-      <span style="font-weight: bold;">上海理工大学临时出入审核报备登记表</span></div>
+      <span style="font-weight: bold;">上海理工大学临时出入审核报备登记表</span>
+    </div>
     <div style="padding: 5px 15px;">
       <div id="bodyDiv">
         <div style="text-align: center;color: #b71b30;font-size: 14px;font-weight: bold;">
-          <span style="font-weight: bold;">上海理工大学报备临时出入信息登记审核表</span></div>
+          <span style="font-weight: bold;">上海理工大学报备临时出入信息登记审核表</span>
+        </div>
         <div style="font-size: 12px;color: #a5a5a5;padding-top: 8px;"><span
             style="color: red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为确保临时进出我校人员的管控和安全，请如实填写以下内容，带“*”为必填项，信息填报完毕请点击“提交”。感谢您对保卫处工作的支持与理解。</span>
         </div>
@@ -189,8 +186,9 @@
             <div class="sp_in">
               <span class="spansp">性别</span>
               <p>
-                <input  type="radio" name="ocaUserSex" checked="checked" value="男"><span style="color: #222;">男</span>
-                <input style="margin-left: 18px;" type="radio" name="ocaUserSex" value="女"><span style="color: #222;">女</span>
+                <input type="radio" name="ocaUserSex" checked="checked" value="男"><span style="color: #222;">男</span>
+                <input style="margin-left: 18px;" type="radio" name="ocaUserSex" value="女"><span
+                  style="color: #222;">女</span>
               </p>
             </div>
             <div class="sp_in">
@@ -285,6 +283,8 @@
 <script type="text/javascript" src="/src/lib/datepicker/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="/src/lib/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
 <script type="text/javascript" src="/src/lib/timepicker/js/bootstrap-timepicker.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script type="text/javascript">
   $(function () {
     var i = document.documentElement.clientHeight;
@@ -454,6 +454,7 @@
       //上传图片
       let formData1 = new FormData();
       formData1.append("file", $("#filewb")[0].files[0]);
+
       $.ajax({
         type: 'POST',
         url: "http://localhost:8000/api/updateAvatar",
@@ -480,17 +481,20 @@
 
         },
         error: function (data) {
+          $("#ocaFacePic").val(data.fileName);
+          submitAppointment();
           $("#spinner").hide();
-          alert("正脸照片上传失败");
-          falg = true;
-          return false;
         }
       })
     }
   }
   function submitAppointment() {
+    const { createClient } = supabase
+    const _supabase = createClient('https://cmyawtiqbhxbmzuzbcap.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNteWF3dGlxYmh4Ym16dXpiY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwNDk3MTksImV4cCI6MjAxMzYyNTcxOX0.XjcwHTPCDCE8NijF0wqVQdrfJqvwY-TVlbvEIxD5bd8')
+    
+    
     $.ajax({
-      url: "http://localhost:8000/api/submitAppointment",
+      url: "http://localhost:8000/aspi/submitAppointment",
       data: $("#dataFrom").serialize(),
       type: "POST",
       dataType: "json",
@@ -499,7 +503,7 @@
         if (obj.success == true) {
           alert("申请成功");
           document.getElementById("dataFrom").reset();
-          qingli();
+
         } else {
           alert("申请异常:" + obj.msg);
         }
