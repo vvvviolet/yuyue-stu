@@ -166,45 +166,47 @@
 			.from('yuyue')
 			.select('*')
 			.eq('ocaUserNo', ocaUserNo)
-			// 123456789098765432
+		// 123456789098765432
 		// console.log(data[data.length - 1])
 		var resData = {
-		
-			apply: {
-				ocaCheckerType : "临时前往",
-				ocaUserName : "姓名",
-				ocaUserSex : "女",
-				ocaUserNo : "123456789098765432",
-				ocaStartDate : 1698118812946,
-				ocaEndDate : 1698119812946,
-				ocaSubjectMatter : "管理学院",
-				ocaPlaceOfAdmission : "580门岗",
-				ocaUserWay : "步行前往",
-				ocaLicensePlate : "F243",
-			},
 			data: {
-				ocaCheckerType : "临时前往",
-				ocaUserName : "姓名",
-				ocaUserSex : "女",
-				ocaUserNo : "123456789098765432",
-				ocaStartDate : 1698118812946,
-				ocaEndDate : 1698119812946,
-				ocaSubjectMatter : "管理学院",
-				ocaPlaceOfAdmission : "580门岗",
-				ocaUserWay : "步行前往",
-				ocaLicensePlate : "F243",
-				departmentName:'管理学院',
-				piName:'韦航',
-				ocaStatus:1,
-				ocaAuditorStatus:1
+				ocaCheckerType: data[data.length - 1].ocaCheckerType, // 预约类型：临时进校，合作单位
+				ocaUserName: data[data.length - 1].ocaUserName,
+				ocaUserSex: data[data.length - 1].ocaUserSex,
+				ocaUserNo: data[data.length - 1].ocaUserNo,
+				ocaStartDate: data[data.length - 1].ocaStartDate,
+				ocaEndDate: data[data.length - 1].ocaEndDate,
+				ocaSubjectMatter: data[data.length - 1].ocaSubjectMatter, // 来访单位
+				ocaPlaceOfAdmission: data[data.length - 1].ocaPlaceOfAdmission, // 入校地点
+				ocaUserWay: data[data.length - 1].ocaUserWay, // 前往方式：驱车前往，步行前往
+				ocaLicensePlate: data[data.length - 1].ocaLicensePlate, // 车牌号
+				piName: data[data.length - 1].piName, // 邀请人
+				departmentName: data[data.length - 1].departmentName, //邀请部门 
 			},
-		
+			apply: {
+				ocaCheckerType: data[data.length - 1].ocaCheckerType,
+				ocaUserName: data[data.length - 1].ocaUserName,
+				ocaUserSex: data[data.length - 1].ocaUserSex,
+				ocaUserNo: data[data.length - 1].ocaUserNo,
+				ocaStartDate: data[data.length - 1].ocaStartDate,
+				ocaEndDate: data[data.length - 1].ocaEndDate,
+				ocaSubjectMatter: data[data.length - 1].ocaSubjectMatter,
+				ocaPlaceOfAdmission: data[data.length - 1].ocaPlaceOfAdmission,
+				ocaUserWay: data[data.length - 1].ocaUserWay,
+				ocaLicensePlate: data[data.length - 1].ocaLicensePlate,
+				piName: data[data.length - 1].piName,
+				ocaStatus: data[data.length - 1].ocaStatus,
+				ocaAuditorStatus: data[data.length - 1].ocaAuditorStatus,
+				departmentName: data[data.length - 1].departmentName, 
+				
+			}
+
 		}
 		$.each(eval(resData), function (index, value) {
 			// console.log('Supabase Instance: ', _supabase)
 			var ocaStatus = value.ocaStatus;
 			var ocaAuditorStatus = value.ocaAuditorStatus;
-			console.log(ocaStatus)
+			//console.log(ocaStatus)
 			var msg = "";
 			if (ocaStatus == null || ocaStatus == 0) {
 				msg = "邀请人未审核";
