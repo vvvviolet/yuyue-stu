@@ -167,37 +167,38 @@
 			.select('*')
 			.eq('ocaUserNo', ocaUserNo)
 		// 123456789098765432
-		// console.log(data[data.length - 1])
+		 console.log(data[data.length - 1])
+		 newData = data[data.length - 1]
 		var resData = {
 			data: {
-				ocaCheckerType: data[data.length - 1].ocaCheckerType, // 预约类型：临时进校，合作单位
-				ocaUserName: data[data.length - 1].ocaUserName,
-				ocaUserSex: data[data.length - 1].ocaUserSex,
-				ocaUserNo: data[data.length - 1].ocaUserNo,
-				ocaStartDate: data[data.length - 1].ocaStartDate,
-				ocaEndDate: data[data.length - 1].ocaEndDate,
-				ocaSubjectMatter: data[data.length - 1].ocaSubjectMatter, // 来访单位
-				ocaPlaceOfAdmission: data[data.length - 1].ocaPlaceOfAdmission, // 入校地点
-				ocaUserWay: data[data.length - 1].ocaUserWay, // 前往方式：驱车前往，步行前往
-				ocaLicensePlate: data[data.length - 1].ocaLicensePlate, // 车牌号
-				piName: data[data.length - 1].piName, // 邀请人
-				departmentName: data[data.length - 1].departmentName, //邀请部门 
+				ocaCheckerType: newData.ocaCheckerType, // 预约类型：临时进校，合作单位
+				ocaUserName: newData.ocaUserName,
+				ocaUserSex: newData.ocaUserSex,
+				ocaUserNo: newData.ocaUserNo,
+				ocaStartDate: Number(newData.ocaStartDate)+86400000,
+				ocaEndDate: Number(newData.ocaEndDate)+86400000,
+				ocaSubjectMatter: newData.ocaSubjectMatter, // 来访单位
+				ocaPlaceOfAdmission: newData.ocaPlaceOfAdmission, // 入校地点
+				ocaUserWay: newData.ocaUserWay, // 前往方式：驱车前往，步行前往
+				ocaLicensePlate: newData.ocaLicensePlate, // 车牌号
+				piName: newData.piName, // 邀请人
+				departmentName: newData.departmentName, //邀请部门 
 			},
 			apply: {
-				ocaCheckerType: data[data.length - 1].ocaCheckerType,
-				ocaUserName: data[data.length - 1].ocaUserName,
-				ocaUserSex: data[data.length - 1].ocaUserSex,
-				ocaUserNo: data[data.length - 1].ocaUserNo,
-				ocaStartDate: data[data.length - 1].ocaStartDate,
-				ocaEndDate: data[data.length - 1].ocaEndDate,
-				ocaSubjectMatter: data[data.length - 1].ocaSubjectMatter,
-				ocaPlaceOfAdmission: data[data.length - 1].ocaPlaceOfAdmission,
-				ocaUserWay: data[data.length - 1].ocaUserWay,
-				ocaLicensePlate: data[data.length - 1].ocaLicensePlate,
-				piName: data[data.length - 1].piName,
-				ocaStatus: data[data.length - 1].ocaStatus,
-				ocaAuditorStatus: data[data.length - 1].ocaAuditorStatus,
-				departmentName: data[data.length - 1].departmentName, 
+				ocaCheckerType: newData.ocaCheckerType,
+				ocaUserName: newData.ocaUserName,
+				ocaUserSex: newData.ocaUserSex,
+				ocaUserNo: newData.ocaUserNo,
+				ocaStartDate: newData.ocaStartDate,
+				ocaEndDate: newData.ocaEndDate,
+				ocaSubjectMatter: newData.ocaSubjectMatter,
+				ocaPlaceOfAdmission: newData.ocaPlaceOfAdmission,
+				ocaUserWay: newData.ocaUserWay,
+				ocaLicensePlate: newData.ocaLicensePlate,
+				piName: newData.piName,
+				ocaStatus: newData.ocaStatus,
+				ocaAuditorStatus: newData.ocaAuditorStatus,
+				departmentName: newData.departmentName, 
 				
 			}
 
