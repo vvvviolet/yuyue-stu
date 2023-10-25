@@ -169,6 +169,17 @@
 		// 123456789098765432
 		 console.log(data[data.length - 1])
 		 newData = data[data.length - 1]
+		 const dict = {
+			'05331':{
+				piName:'王楚平',
+				departmentName:'创新创业学院'
+			},
+			'06637':{
+			  piName:'伏天',
+			  departmentName:'产业处（上海理工资产经营有限公司）'
+			}
+		  }
+
 		var resData = {
 			data: {
 				ocaCheckerType: newData.ocaCheckerType, // 预约类型：临时进校，合作单位
@@ -181,9 +192,9 @@
 				ocaPlaceOfAdmission: newData.ocaPlaceOfAdmission, // 入校地点
 				ocaUserWay: newData.ocaUserWay, // 前往方式：驱车前往，步行前往
 				ocaLicensePlate: newData.ocaLicensePlate, // 车牌号
-				piName: newData.piName, // 邀请人
-				departmentName: newData.departmentName, //邀请部门 
-			},
+				piName: dict[newData.ocaInvitationCode].piName, // 邀请人
+				departmentName: dict[newData.ocaInvitationCode].departmentName, //邀请部门 
+			},	
 			apply: {
 				ocaCheckerType: newData.ocaCheckerType,
 				ocaUserName: newData.ocaUserName,
