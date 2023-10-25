@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <link rel="icon" href="/xyyy_1.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校内预约平台</title>
+  <title>移动端-校外预约信息</title>
   <style type="text/css">
     body {
       background: #b71b30;
@@ -516,28 +516,7 @@
     } catch (error) {
       console.log(error)
     }
-    //console.log(data)
-    // $.ajax({
-    //   url: "http://localhost:8000/aspi/submitAppointment",
-    //   data: $("#dataFrom").serialize(),
-    //   type: "POST",
-    //   dataType: "json",
-    //   success: function (obj) {
-    //     console.log(obj)
-    //     if (obj.success == true) {
-    //       alert("申请成功");
-    //       document.getElementById("dataFrom").reset();
-
-    //     } else {
-    //       alert("申请异常:" + obj.msg);
-    //     }
-    //     $("#spinner").hide();
-    //   },
-    //   error: function () {
-    //     alert("操作异常，请联系管理员");
-    //     $("#spinner").hide();
-    //   }
-    // })
+   
 
   }
 
@@ -548,6 +527,10 @@
     obj = eval(str);
     return obj;
   }
+
+
+
+
 </script>
 
 </html>
