@@ -98,7 +98,6 @@
 					<button class="infobutton" onclick="query()">查询</button>
 				</div>
 				<div id="content">
-
 				</div>
 				<!-- <div style="margin-top: 15px">
 				<div class="jieguoDiv">
@@ -161,6 +160,7 @@
 		if (ocaUserNo == "") {
 			return false;
 		}
+		$("#content").empty();
 
 		const { data, error } = await _supabase
 			.from('yuyue')
@@ -220,7 +220,7 @@
 			} else if (ocaAuditorStatus == 1) {
 				msg = "完成";
 			}
-			//console.log($("#content").length)
+			
 			$("#content").append("<div style=\"margin-top: 15px\">\r\n" +
 				"				<div class=\"jieguoDiv\">\r\n" +
 				"					<table>\r\n" +
