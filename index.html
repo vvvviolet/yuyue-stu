@@ -421,8 +421,9 @@
       $("#spinner").hide();
       return false;
     } else {
-      $("#tempStartDate").val(orderStartTime);
-      $("#tempEndDate").val(orderEndTime);
+      //console.log('orderStartTime',orderStartTime,Date.parse(new Date(orderStartTime)))
+      $("#tempStartDate").val(Date.parse(new Date(orderStartTime)));
+      $("#tempEndDate").val(Date.parse(new Date(orderEndTime)));
     }
 
     var ocaSubjectMatter = $("#ocaSubjectMatter").val();
@@ -491,45 +492,52 @@
   async function submitAppointment() {
     const { createClient } = supabase
     const _supabase = createClient('https://cmyawtiqbhxbmzuzbcap.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNteWF3dGlxYmh4Ym16dXpiY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgwNDk3MTksImV4cCI6MjAxMzYyNTcxOX0.XjcwHTPCDCE8NijF0wqVQdrfJqvwY-TVlbvEIxD5bd8')
-    const { data, error } = await _supabase
-      .from('yuyue')
-      .insert({
-        ocaCheckerType: '临时进校', // 预约类型：临时进校，合作单位
-        ocaUserName: '陈诺',
-        ocaUserSex: '女',
-        ocaUserNo: '123456789098765432',
-        ocaStartDate: new Date().getTime(),
-        ocaEndDate: new Date().getTime() + 86400,
-        ocaSubjectMatter: '来访', // 来访单位
-        ocaPlaceOfAdmission: '580门岗', // 入校地点
-        ocaUserWay: '步行前往', // 前往方式：驱车前往，步行前往
-        ocaLicensePlate: '', // 车牌号
-        piName: '魏颃', // 邀请人
-        departmentName: '管理学院', //邀请部门 
-      })
-    console.log(($("#dataFrom").serialize()))
-    console.log(strToObj(decodeURI($("#dataFrom").serialize())))
-    $.ajax({
-      url: "http://localhost:8000/aspi/submitAppointment",
-      data: $("#dataFrom").serialize(),
-      type: "POST",
-      dataType: "json",
-      success: function (obj) {
-        console.log(obj)
-        if (obj.success == true) {
-          alert("申请成功");
-          document.getElementById("dataFrom").reset();
+    const insert_data = {
+      ocaCheckerType: '临时进校', // 预约类型：临时进校，合作单位
+      ocaUserName: '陈诺',
+      ocaUserSex: '女',
+      ocaUserNo: '123456789098765432',
+      ocaStartDate: new Date().getTime(),
+      ocaEndDate: new Date().getTime() + 86400,
+      ocaSubjectMatter: '来访', // 来访单位
+      ocaPlaceOfAdmission: '580门岗', // 入校地点
+      ocaUserWay: '步行前往', // 前往方式：驱车前往，步行前往
+      ocaLicensePlate: '', // 车牌号
+      piName: '魏颃', // 邀请人
+      departmentName: '管理学院', //邀请部门 
+    }
+    //const { data, error } = await _supabase.from('yuyue').insert()
+    //console.log(($("#dataFrom").serialize()))
+    //console.log(strToObj(decodeURI($("#dataFrom").serialize())))
+    const obj_data = strToObj(decodeURI($("#dataFrom").serialize()))
+    try {
+      const { data, error } = await _supabase.from('yuyue').insert(obj_data)
+      alert('申请成功')
+    } catch (error) {
+      console.log(error)
+    }
+    //console.log(data)
+    // $.ajax({
+    //   url: "http://localhost:8000/aspi/submitAppointment",
+    //   data: $("#dataFrom").serialize(),
+    //   type: "POST",
+    //   dataType: "json",
+    //   success: function (obj) {
+    //     console.log(obj)
+    //     if (obj.success == true) {
+    //       alert("申请成功");
+    //       document.getElementById("dataFrom").reset();
 
-        } else {
-          alert("申请异常:" + obj.msg);
-        }
-        $("#spinner").hide();
-      },
-      error: function () {
-        alert("操作异常，请联系管理员");
-        $("#spinner").hide();
-      }
-    })
+    //     } else {
+    //       alert("申请异常:" + obj.msg);
+    //     }
+    //     $("#spinner").hide();
+    //   },
+    //   error: function () {
+    //     alert("操作异常，请联系管理员");
+    //     $("#spinner").hide();
+    //   }
+    // })
 
   }
 
