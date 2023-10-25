@@ -378,7 +378,11 @@
       $("#spinner").hide();
       return false;
     }
-
+    if(ocaInvitationCode!='05331' && ocaInvitationCode!='06637'){
+      alert("邀请码有误");
+      $("#spinner").hide();
+      return false;
+    }
     var ocaUserName = $("#ocaUserName").val();
     if (ocaUserName == "") {
       alert("请填写申请人姓名");
@@ -498,15 +502,7 @@
     //console.log(strToObj(decodeURI($("#dataFrom").serialize())))
     const obj_data = strToObj(decodeURI($("#dataFrom").serialize()))
     console.log(obj_data.ocaInvitationCode)
-    const dict = {
-      '05331 ':{
-
-      },
-      '06637':{
-        piName:'伏天',
-        departmentName:'产业处（上海理工资产经营有限公司）'
-      }
-    }
+   
     try {
       const { data, error } = await _supabase.from('yuyue').insert(obj_data)
       alert('申请成功')
